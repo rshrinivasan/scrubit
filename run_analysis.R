@@ -60,5 +60,11 @@ merge_set <- rbind(train_set, test_set)
 # for subject and Activity
 keep_cols <- names(merge_set[grep("mean\\(\\)|std\\(\\)|subject|Activity", names(merge_set))])
 mean_std_set <- merge_set[ , keep_cols]
-
-
+# in order to get a tidy set with the average of each 
+# variable for each activity and each subject, use data.table
+library(data.table)
+dt <- data.table(mean_std_set)
+# get means of each variable by activity and subject
+tidy <- dt[ , lapply(.SD, mean), by = c("subject", "Activity")]
+# write out results into a text file
+write.table(tidy, file = "tidy.txt", sep = "\t")
