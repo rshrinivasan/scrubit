@@ -3,7 +3,7 @@ Code Book
 For the UCI HAR Dataset available at https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip  
 This Code Book has details about the tidy data set, for details of the original variables refer to the readme.txt file downloaded using the URL above.
 
-### Grouping Variables ###  
+## Grouping Variables ##  
 subject ID of the participant in the study  
 Activity ID of the activity the subject was doing during the time of measurement
 
