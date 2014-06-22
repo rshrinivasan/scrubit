@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=9" >
+
+<title>Course Project: Coursera - Getting &amp; Cleaning Data</title>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+   white-space: pre-wrap;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r, code.cpp {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+
+
+
+
+</head>
+
+<body>
+<h1>Course Project: Coursera - Getting &amp; Cleaning Data</h1>
+
+<h3>Project Objectives:</h3>
+
+<ul>
+<li>Demonstrate ability to collect, work with, and clean a data set. </li>
+<li>Prepare a tidy data set than can be used for later analysis</li>
+</ul>
+
+<h3>Project Background:</h3>
+
+<p>Download the data from the accelerometers from the Galaxy S smartphone. Data is split into the test and training data sets. Each data set contrains three files of interest and two files that are common between the data sets. Details of the files are:</p>
+
+<ol>
+<li>file activity_labels.txt contains the description for the activity code</li>
+<li>file features.txt contains the list of variables measured</li>
+<li>file X_train.txt and X-test.txt contains the observations for each variable</li>
+<li>file Y-train.txt and X-test.txt contains the activity code at time of measurement</li>
+<li>file subject_train.txt and subject_test.txt contains the subject identifier</li>
+</ol>
+
+<p>Once downloaded merge the training and test data sets, extract the measurements on the mean and standard deviation for each observation and create a tidy data set with the average of each variable for each activity and each subject.</p>
+
+<h3>Project Submission:</h3>
+
+<ol>
+<li>Upload a tidy data set to the Coursera Getting and Cleaning Data course website.</li>
+<li>Submit a link to a Github repository. The repository should have the following files:
+a) Readme.md - details working of the scripts
+b) CodeBook.md - code book describing the variables, data and any transformations
+c) run_analysis.R - cleanup and analysis script.</li>
+</ol>
+
+<h3>run_analysis.R</h3>
+
+<p>This scripts sets the working directory to the folder <em>data</em> where the files were unzipped to, loads the test and training data set, merges them together, extracts the mean and standard deviation measurements for each observation and writes out a tidy set with the average of each variable for each activity and each subject.</p>
+
+<p><em>Pre-Requisites before running this script</em></p>
+
+<ol>
+<li>Download file from <a href="https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip">https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip</a></li>
+<li>Unzip the file into a folder named data. After unzipping the folder data will have two sub-folders test and train which hold the test and train data set.</li>
+</ol>
+
+<p><em>Running run_analaysis.R</em></p>
+
+<p>The following is a high-level overview of the steps in the process:</p>
+
+<ol>
+<li>Set the working directory to point to the data folder.</li>
+<li>Load the file activity_labels.txt into a data frame.</li>
+<li>Subset the data frame to extract the activity description in column V2.</li>
+<li>Load the file features.txt into a data frame.</li>
+<li>Subset the data frame to extract the feature description in column V2.</li>
+<li>Load the files X_train.txt, X-test.txt, Y-train.txt and X-test.txt.</li>
+<li>Set the column names on the X files to be equal to the feature names from <strong>step 5</strong>.</li>
+<li>Set the column name on the Y files to be equal to the literal &ldquo;Activity&rdquo;.</li>
+<li>Encode the &ldquo;Activity&rdquo; column on the Y files as a factor.</li>
+<li>Assign each level the Actvity description from <strong>step 3</strong>.</li>
+<li>Load the files subject_train.txt and subject_test.txt into data frames.</li>
+<li>Set the column names on the data frames to the literal &ldquo;subject&rdquo;.</li>
+<li>Encode the &ldquo;subject&rdquo; columns as factors.</li>
+<li>Create a test_data_set and train_data_set data frames that include the columns Activity and subject in addition to all the features columns.</li>
+<li>Merge the test and training data sets.</li>
+<li>Extract the mean and standard deviation measurements for each observation into a data frame.</li>
+<li>Get the mean of each observation in the data frame from <strong>step 16</strong> grouped by subject and activity.</li>
+<li>Write out these observations into a file called tidy.txt.</li>
+</ol>
+
+</body>
+
+</html>
+
